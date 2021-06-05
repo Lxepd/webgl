@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head><!--文档头部-->
+	<!--用UTF-8字符，否则某些浏览器会乱码-->
+	<meta charset = "utf-8">
+	<!--文档标题-->
+	<title>webgl基本框架</title>
+	</head>
+	
+	<body><!--文档主体-->
+	<!--绘图区域id，以及宽度和高度，用WebGL绘制的图形将显示在该擦canvas-->
+	<canvas id = "webgl" width = "512" height = "512">
+	对不起，你的浏览器不支持HTML5的canvas元素！<!--出错时显示-->
+	</canvas>
+	
+	<!--以下为用到的shader程序和JavaScript程序，程序类型由type属性决定，
+	顶点Shader程序和片元Shader程序有id，因为JavaScript程序中需要对其
+	进行访问，而JavaScript程序无id-->
+	
+	<!--顶点Shader程序-->
+	<script id = "vertex-shader" type = "x-shader/x-vertex">
+	attribute vec4 a_Position;
+	void main()
+	{
+		gl_Position = a_Position;
+		
+	}
+	</script>
+	<!--片元Shader程序-->
+	<script id = "fragment-shader" type = "x-shader/x-fragment">
+	precision mediump float;
+	void main()
+	{
+		gl_FragColor = vec4(1.0,1.0,1.0,1.0);
+	}
+	</script>
+	<!--辅助编程编写的3个JavaScript程序-->
+	<script type = "text/javascript" src = "./Common/webgl-utils.js"></script>
+	<script type = "text/javascript" src = "./Common/initShaders.js"></script>
+	<script type = "text/javascript" src = "./Common/MV.js"></script>
+	<!--主程序，JS文件名改为与本HTML文件名一致-->
+	<script type = "text/javascript" src = "webgl基本框架.js"></script>
+	</body>
+	</html>
