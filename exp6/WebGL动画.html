@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head><!--文档头部-->
+	<!--用UTF-8字符，否则某些浏览器会乱码-->
+	<meta charset = "utf-8">
+	<!--文档标题-->
+	<title>WebGL动画</title>
+		<script>
+			
+		</script>
+	</head>
+	
+	<body><!--文档主体-->
+	<!--绘图区域id，以及宽度和高度，用WebGL绘制的图形将显示在该擦canvas-->
+	<canvas id = "webgl" width = "600" height = "600">
+	对不起，你的浏览器不支持HTML5的canvas元素！<!--出错时显示-->
+	</canvas>
+	
+	<div>
+	速度与方向(点击弹起)：
+	<select id = "mymenu" size = "3">
+		<option value="0">变向</option>
+		<option value="1">加速</option>
+		<option value="2">减速</option>
+	</select>
+	正方形颜色(点击按下)：
+	<select id = "ColorMenu" size = "2">
+		<option value="0">白色</option>
+		<option value="1">红色</option>
+		<option value="2">绿色</option>
+		<option value="3">蓝色</option>
+		</select>
+	</br>
+	每秒旋转角度
+	0<input id = "slide" type = "range" 
+	min = "0" max = "100" step = "10" value = "50"/>100
+	</div>
+
+	<!--以下为用到的shader程序和JavaScript程序，程序类型由type属性决定，
+	顶点Shader程序和片元Shader程序有id，因为JavaScript程序中需要对其
+	进行访问，而JavaScript程序无id-->
+	
+	<!--顶点Shader程序-->
+	<script id = "vertex-shader" type = "x-shader/x-vertex">
+	attribute vec2 a_Position;
+	uniform mat4 u_matProj;
+	uniform float u_Angle;
+	void main()
+	{
+		vec4 pos = vec4(a_Position, 0, 1);
+		float rad = radians(u_Angle);
+
+		pos.x = a_Position.x * cos(rad) - a_Position.y * sin(rad);
+		pos.y = a_Position.x * sin(rad) + a_Position.y * cos(rad);
+		gl_Position = u_matProj * pos;
+	}
+	</script>
+	<!--片元Shader程序-->
+	<script id = "fragment-shader" type = "x-shader/x-fragment">
+	precision mediump float;
+	uniform vec3 u_Color;
+	void main()
+	{
+		gl_FragColor = vec4(u_Color, 1.0);
+	}
+	</script>
+	<!--辅助编程编写的3个JavaScript程序-->
+	<script type = "text/javascript" src = "./Common/webgl-utils.js"></script>
+	<script type = "text/javascript" src = "./Common/initShaders.js"></script>
+	<script type = "text/javascript" src = "./Common/MV.js"></script>
+	<!--主程序，JS文件名改为与本HTML文件名一致-->
+	<script type = "text/javascript" src = "WebGL动画.js"></script>
+	</body>
+	</html>
